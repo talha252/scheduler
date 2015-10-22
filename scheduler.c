@@ -298,8 +298,10 @@ int ReadFile(Task** tasks){
 	{
 		temp_task[i].id = i + 1;
 		fscanf(input, "%f %f %f %f", &temp_task[i].offset,&temp_task[i].period, &temp_task[i].execution, &temp_task[i].deadline);
-		if (ferror(input))
+		if (ferror(input)){
+			free(*tasks);
 			return -1;
+		}
 		if (temp_task[i].deadline == 0) /*if not explicitly given make it period*/
 			temp_task[i].deadline = temp_task[i].period;
 	}
